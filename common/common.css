@@ -1,0 +1,147 @@
+
+
+html {
+    height:100%;
+}
+
+.banner {
+    background-size: 100% 100%;
+    height:18rem;
+    width:100%;
+    object-position: 50% 0%;
+    background-repeat: no-repeat;
+    border-bottom: 3px solid rgb(59, 73, 72);
+}
+
+
+.main {
+    z-index: 1;
+    padding-bottom:3vh;
+    min-height:100vh;
+    }
+
+
+.top-nav {
+    height:3rem;
+    width:100%;
+    border-bottom: 4px solid rgb(26,33,31);
+}
+
+.top-nav a {
+    font-size: 2rem;
+    height: 100%;
+    color:white;
+    padding-left:1vw;
+    padding-right:1vw;
+    text-decoration: none;
+}
+
+
+.top-nav .nav-a:hover {
+    background-color: white;
+    color: black;
+}
+
+.top-nav .current-a {
+    background-color: white;
+    color: black;
+}
+
+
+#header1 {
+    padding-top: 5rem;
+}
+
+
+footer {
+    width:100%;
+    border-top: 2px solid rgb(42, 46, 48);
+    bottom:0;
+}
+
+.no-padding-lr {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.no-margin-td {
+    margin-top:0;
+    margin-bottom:0;
+}
+
+
+.float-l {
+    float:left;
+}
+
+.float-r {
+    float:right;
+}
+
+.centered-just {
+    text-align: center;
+}
+
+/* .centered-abs {
+    left: 45%;
+    right: 45%;
+    position:absolute;
+    border: 2px solid red;
+} */
+
+.fanwood-font {
+    font-family: "Fanwood Text", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.databox {
+    padding: 1rem;
+    margin: 1vh;
+    border-radius: 10px;
+    box-shadow: 3px 3px rgb(31,34,35);
+    overflow: hidden;
+}
+
+div {
+    box-sizing: border-box;
+    margin:0;
+}
+
+
+
+.databox ul li {
+    color:white;
+}
+
+
+.medium-font {
+    font-size: medium;
+}
+
+.large-font {
+    font-size: large;
+}
+
+
+.inline-a:link {
+    color: lightseagreen;
+    font-weight: bolder;
+    text-decoration:underline lightseagreen;
+}
+
+.inline-a:visited {
+    color:coral;
+    font-weight: bolder;
+    text-decoration: underline coral;
+}
+
+.inline-a:hover {
+    background-color: white;
+    color: black;
+    text-decoration:underline black;
+}
+
+.underlined-white {
+    text-decoration: underline white;
+}

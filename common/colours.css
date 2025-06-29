@@ -1,0 +1,35 @@
+.white {
+    color:white;
+}
+
+.light-gray {
+    color:lightgray;
+}
+
+.blue {
+    color:blue;
+}
+
+.metal-gray-bg {
+    background-color: rgb(36, 45, 44);
+}
+
+.light-metal-gray-bg {
+    background-color: rgb(59, 73, 72);
+}
+
+.darker-metal-gray-bg {
+    background-color: rgb(26,33,31);
+}
+
+.dc-gray-bg {
+    background-color: rgb(33,37,38);
+}
+
+.plateau-gray-bg {
+    background-color: rgb(44,49,51);
+}
+
+.hydriodon-gray-bg {
+    background-color: rgb(26, 29, 30);
+}
