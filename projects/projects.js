@@ -46,9 +46,25 @@ function hoverEvents() {
 
 function clickEvents() {
 
+    $(".collapse-button").click(function() {
+        let article = $(this).closest(".databox-transitional");
+        if (!article.attr('expanded') === 'true') {
+            return;  
+        }
+        toggle(article);
+  
 
-        $(".project-article").click(function() {
+    });
+
+    
+    $(".project-article").click(function() {
             let article = $(this).find(".databox-transitional");
+            if (article.attr('expanded') === 'true') {
+                return;
+            }
+
+            
+
             toggle(article);
     });
 

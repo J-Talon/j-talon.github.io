@@ -68,6 +68,28 @@
     gap: 1%;
 }
 
+
+.content-header {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.collapse-button:hover {
+    border: lightgray 3px solid;
+}
+
+.collapse-button {
+    min-width: 5rem;
+    border-radius: 5px;
+    padding:1rem;
+    border: rgb(36, 45, 44) 3px outset;
+}
+
+
+
+
 p, li {
     font-size: medium;
 }
@@ -82,5 +104,9 @@ p, li {
     line-height: 2.5;
 }
 
+
+.bordering-box {
+    border: darkslategray 2px solid;
+}
 
 
