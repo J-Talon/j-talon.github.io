@@ -1,0 +1,26 @@
+
+@keyframes rounding-border {
+    33% {
+        border-top: 1px solid red;
+        border-right: 1px solid green;
+        border-bottom: 1px solid orange;
+        border-left: 1px solid blue;
+    }
+
+    66% {
+        border-top: 1px solid blue;
+        border-right: 1px solid red;
+        border-bottom: 1px solid green;
+        border-left: 1px solid orange;
+    }
+
+    100% {
+        border-top: 1px solid orange;
+        border-right: 1px solid green;
+        border-bottom: 1px solid red;
+        border-left: 1px solid blue;
+    }
+}
+
+
+
