@@ -95,6 +95,13 @@ footer {
     font-style: normal;
   }
 
+.fanwood-font-bold {
+    font-family: "Fanwood Text", serif;
+    font-weight: 900;
+    font-style:italic;
+  }
+
+
 .databox {
     padding: 1rem;
     margin: 1vh;

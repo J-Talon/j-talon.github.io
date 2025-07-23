@@ -4,19 +4,29 @@
 
 
 $(document).ready(function() {
-    showcookie($(this).find("#thecookie"));
+
+    let chance = Math.random();
+    if (chance > 0.9) {
+        showcookie($(this).find("#thecookie"));
+    }
+    else {
+        $(this).find("#thecookie *").css("display","none");
+    }
 });
 
 
 
-function randomNumber() {
-    return (Math.random() * 5) + 1;
-}
+
+
+
+
+
 
 
 function showcookie(content) {
 
     const TIME = 1000;
+    let contentHeight = content[0].scrollHeight + 10;
 
     setTimeout(function() {
         content.css('transition','');
@@ -25,11 +35,13 @@ function showcookie(content) {
 
             requestAnimationFrame(function() {
                 content.animate({
-                    height: '3rem',
-                    opacity: 1
-                }, TIME);
+                    height: contentHeight,
+                    opacity: 1,
+                }, TIME,0);
             });
     });
-    }, randomNumber() * 1000);
+    }, TIME);
 
 }
+
+

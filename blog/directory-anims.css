@@ -1,24 +1,31 @@
 
 @keyframes rounding-border {
-    33% {
-        border-top: 1px solid red;
-        border-right: 1px solid green;
-        border-bottom: 1px solid orange;
-        border-left: 1px solid blue;
+    25% {
+        border-top: 1px solid cyan;
+        border-right: 1px solid white;
+        border-bottom: 1px solid cyan;
+        border-left: 1px solid white;
     }
 
-    66% {
-        border-top: 1px solid blue;
-        border-right: 1px solid red;
-        border-bottom: 1px solid green;
-        border-left: 1px solid orange;
+    50% {
+        border-top: 1px solid rgb(62, 135, 244);
+        border-right: 1px solid cyan;
+        border-bottom: 1px solid rgb(62, 135, 244);
+        border-left: 1px solid cyan;
+    }
+
+    75% {
+        border-top: 1px solid cyan;
+        border-right: 1px solid rgb(62, 135, 244);
+        border-bottom: 1px solid cyan;
+        border-left: 1px solid rgb(62, 135, 244);
     }
 
     100% {
-        border-top: 1px solid orange;
-        border-right: 1px solid green;
-        border-bottom: 1px solid red;
-        border-left: 1px solid blue;
+        border-top: 1px solid cyan;
+        border-right: 1px solid white;
+        border-bottom: 1px solid cyan;
+        border-left: 1px solid white;
     }
 }
 
