@@ -18,3 +18,17 @@
     border: 5px solid black;
     border-radius: 5px;
 }
+
+
+.post-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-items: center;
+}
+
+
+.databox {
+    justify-self:center;
+}
+
