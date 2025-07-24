@@ -6,8 +6,9 @@
 $(document).ready(function() {
 
     let chance = Math.random();
-    if (chance > 0.9) {
+    if (chance > 0.6) {
         showcookie($(this).find("#thecookie"));
+        $(this).find("#cookiemsg").text("Here have a cookie :P");
     }
     else {
         $(this).find("#thecookie *").css("display","none");

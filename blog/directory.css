@@ -50,22 +50,22 @@
 
 .blogpost-pre {
     width:auto;
-    display:grid;
+    /* display:grid;
     grid-template-columns: 75% 25%;
     grid-template-rows: auto;
-    grid-template-areas: "desc img";
+    grid-template-areas: "desc img"; */
     border: 2px dashed black;
     margin-bottom: 1rem;
     aspect-ratio: 32 / 4;
 }
 
-
+/* 
 .blog-img {
     border-top:3px solid black;
     border-right: 3px solid black;
     border-bottom: 3px solid black;
     border-left: 0px;
-}
+} */
 
 .blog-desc {
     border: 3px solid black;

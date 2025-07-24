@@ -1,0 +1,20 @@
+
+
+.post-showcase {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    box-shadow: 3px 3px rgb(71, 74, 74);
+    margin:1rem;
+    padding:0.5rem;
+}
+
+
+.post-img {
+    max-width: 80%;
+    margin:1rem 10% 1rem 10%;
+    border: 5px solid black;
+    border-radius: 5px;
+}
