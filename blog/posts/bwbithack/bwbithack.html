@@ -132,42 +132,45 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="databox light-metal-gray-bg medium-font">
-                            <p class="white fanwood-font">
-                                If we consider the naive solution, we can set a fixed metadata value for a block, which is plugin dependant. 
-                               This allows multiple plugins to have metadata with the same label and not have conflict.
+                        <div class="bp-container">
+                            <div class="databox light-metal-gray-bg medium-font">
+                                <p class="white fanwood-font">
+                                    If we consider the naive solution, we can set a fixed metadata value for a block, which is plugin dependant. 
+                                This allows multiple plugins to have metadata with the same label and not have conflict.
 
-                               What we would do is for every block in the 3-dimensional area, simply place a different string for different blocks
-                               for example "RED" for blocks which affect team red, and "RESTRICTED" for blocks which should not allow placement in the area.
-                            </p>
-                            <div class="post-showcase hydriodon-gray-bg centered-just">
-                                <img class="post-img" src="./setdata.png">
+                                What we would do is for every block in the 3-dimensional area, simply place a different string for different blocks
+                                for example "RED" for blocks which affect team red, and "RESTRICTED" for blocks which should not allow placement in the area.
+                                </p>
+                                <div class="post-showcase hydriodon-gray-bg centered-just">
+                                    <img class="post-img" src="./setdata.png">
+                                </div>
+
+
+                                <p class="white fanwood-font">
+                                    The issue with this however, is that that we are working in a 3D area, which means for every block we scale the area up, 
+                                    the area scales cubically.
+                                </p>
+                                <br>
+                                <p class="white fanwood-font">
+                                    Imagine that we have a 200 x 50 x 200 arena area, which is a relatively small arena size. 
+                                    For simplification, lets imagine that we tag each block in the boundary, and the average size of the string that we use is 5 characters in length.
+                                    In Java, a character in a string is 1 byte, so a string of length 5 is 5 bytes in size.
+                                </p>
+
+
+                                <div class="post-showcase hydriodon-gray-bg centered-just">
+                                    <img class="post-img" src="./datacalc1.png">
+                                </div>
+
+                                <p class="white fanwood-font">
+                                    The order of growth of the memory required would be O(n^3) in this case, and 
+                                    although this isn't that significant of a memory overhead for this specific example,
+                                    it is also important to consider how Spigot actually handles the creation of metadata.
+                                </p>
+
                             </div>
-
-
-                            <p class="white fanwood-font">
-                                The issue with this however, is that that we are working in a 3D area, which means for every block we scale the area up, 
-                                the area scales cubically.
-                            </p>
-                            <br>
-                            <p class="white fanwood-font">
-                                Imagine that we have a 200 x 50 x 200 arena area, which is a relatively small arena size. 
-                                For simplification, lets imagine that we tag each block in the boundary, and the average size of the string that we use is 5 characters in length.
-                                In Java, a character in a string is 1 byte, so a string of length 5 is 5 bytes in size.
-                            </p>
-
-
-                            <div class="post-showcase hydriodon-gray-bg centered-just">
-                                <img class="post-img" src="./datacalc1.png">
-                            </div>
-
-                            <p class="white fanwood-font">
-                                The order of growth of the memory required would be O(n^3) in this case, and 
-                                although this isn't that significant of a memory overhead for this specific example,
-                                it is also important to consider how Spigot actually handles the creation of metadata.
-                            </p>
-
                         </div>
+
                     </div>
                 </div>
 
@@ -213,61 +216,66 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="divider-line white-bg"></div>
-                        <div class="databox light-metal-gray-bg white fanwood-font medium-font">
-                            <h4 class="centered-just">Fixes</h4>
-                            <p>
-                                If we choose to continue with this approach, one fix that we could use to bring down the memory, and
-                                potentially the CPU time to set the tags onto the blocks is to invert the selection of the arena and use bounding boxes instead for some boundaries.
-                            </p>
+                        <div class="bp-container">
+                            <div class="databox light-metal-gray-bg white fanwood-font medium-font">
+                                <h4 class="centered-just">Fixes</h4>
+                                <p>
+                                    If we choose to continue with this approach, one fix that we could use to bring down the memory, and
+                                    potentially the CPU time to set the tags onto the blocks is to invert the selection of the arena and use bounding boxes instead for some boundaries.
+                                </p>
 
-                            <br>
+                                <br>
 
-                            <p>
-                                Instead of tracking where the player can place blocks, we can instead track the blocks the player
-                                has placed instead, and assume all others are not breakable by the player. 
+                                <p>
+                                    Instead of tracking where the player can place blocks, we can instead track the blocks the player
+                                    has placed instead, and assume all others are not breakable by the player. 
 
-                                If the block has a tag that shows the player has placed it, then we can allow that block to also be broken 
-                                when the player tries to break it as well. When the block has been broken, we would want to remove the tag from it so that it does not potentially interfere with
-                                other functions of the map. 
-                            </p>
+                                    If the block has a tag that shows the player has placed it, then we can allow that block to also be broken 
+                                    when the player tries to break it as well. When the block has been broken, we would want to remove the tag from it so that it does not potentially interfere with
+                                    other functions of the map. 
+                                </p>
 
-                            <br>
+                                <br>
 
-                            <p>
-                                Other boundaries, such as team effects and traps, can be implemented using bounding boxes which determine an area where they should be activated. 
-                            </p>
+                                <p>
+                                    Other boundaries, such as team effects and traps, can be implemented using bounding boxes which determine an area where they should be activated. 
+                                </p>
+                            </div>
                         </div>
+
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="databox light-metal-gray-bg white fanwood-font medium-font">
-                            <p>
-                                This method works decently for tracking blocks, but we can also do away with spigot's metadata system entirely to create solution
-                                customized to our particular use case.
-                            </p>
+                        <div class="bp-container">
+                            <div class="databox light-metal-gray-bg white fanwood-font medium-font">
+                                <p>
+                                    This method works decently for tracking blocks, but we can also do away with spigot's metadata system entirely to create solution
+                                    customized to our particular use case.
+                                </p>
 
-                            <br>
+                                <br>
 
-                            <p>
-                                Spigot acts as a translation between Minecraft's NMS (net.minecraft.server) server code, and 
-                                a version independent API which developers use. Aside from meta data, there isn't much in the way of other
-                                decorators which could be used to track blocks. 
-                            </p>
+                                <p>
+                                    Spigot acts as a translation between Minecraft's NMS (net.minecraft.server) server code, and 
+                                    a version independent API which developers use. Aside from meta data, there isn't much in the way of other
+                                    decorators which could be used to track blocks. 
+                                </p>
 
-                            <br>
+                                <br>
 
-                            <p>
-                                Modifying the base block classes by defining a subclass would also be a horrible idea as it could cause issues with Minecraft's loading system, 
-                                furthermore compounded by the fact that chunk reloads would remove any modifications placed onto the blocks.
-                            </p>
+                                <p>
+                                    Modifying the base block classes by defining a subclass would also be a horrible idea as it could cause issues with Minecraft's loading system, 
+                                    furthermore compounded by the fact that chunk reloads would remove any modifications placed onto the blocks.
+                                </p>
 
-                            <br>
+                                <br>
 
-                            <p>
-                                Therefore a handler or external manager would be the preferable choice to managing block tags. 
-                            </p>
+                                <p>
+                                    Therefore a handler or external manager would be the preferable choice to managing block tags. 
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -338,59 +346,60 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="databox hydriodon-gray-bg white fanwood-font medium-font centered-just"> 
-                            <div class="post-showcase metal-gray-bg">
-                                <img class="post-img" src="./counting2d.png">
+                        <div class="bp-container">
+                            <div class="databox hydriodon-gray-bg white fanwood-font medium-font centered-just"> 
+                                <div class="post-showcase metal-gray-bg">
+                                    <img class="post-img" src="./counting2d.png">
+                                </div>
+
+
+                                <p>
+                                    Consider a 2x3 grid as our boundary. If we want to hash the striped square, we will need to 
+                                    count the amount of completed rows which have come before it, and then know it's position relative to the 
+                                    closest row start. This is akin to grouping numbers in 10s and then calculating the remainder.
+                                </p>
+                                <br>
+
+                                <p>
+                                    If we are counting relative to x, then this is the same as saying "count the completed rows on the x axis, and then add the remainder of the unfinished row".
+                                    In this case, the striped block would be 1 completed row, and 2 extra, for which we can assign an id 5. If 0 indexed, would be 4.
+                                    If the block's position is at the limit however, we have no remainder to add, and the id would be just x * y.
+                                </p>
+
+                                <br>
+                                <p>
+                                    Below is the implementation code-wise but for the x-z plane.
+                                </p>
+                            
+
+
+                                <div class="post-showcase metal-gray-bg">
+                                    <img class="post-img" src="./counting2dcode.png">
+                                </div>
+
+                                <p>
+                                    To expand this to the y axis, we can apply a similar idea. You can think of the solution for the x,z plane as the remainder of the grouping of 10s, which 
+                                    means that we need to calculate the groups next.
+                                </p>
+
+
+                                <div class="post-showcase metal-gray-bg">
+                                    <img class="post-img" src="./counting3d.png">
+                                </div>
+
+                                <p>
+                                    To calculate the full groups, we can simply take the y level of the block, and then multiply it by x and z lengths.
+                                    Then we can add up the remainder and the groups to get the block id. This will allow all of the blocks in the boundary to
+                                    be assigned a unique id. To take up the full range of possible numbers, we can also shift the numbers down to the minimum for the current
+                                    data type and also convert the numbers to a different base.
+                                </p>
+
+                                <div class="post-showcase metal-gray-bg">
+                                    <img class="post-img" src="./counting3dcode.png">
+                                </div>
+
                             </div>
-
-
-                            <p>
-                                Consider a 2x3 grid as our boundary. If we want to hash the striped square, we will need to 
-                                count the amount of completed rows which have come before it, and then know it's position relative to the 
-                                closest row start. This is akin to grouping numbers in 10s and then calculating the remainder.
-                            </p>
-                            <br>
-
-                            <p>
-                                If we are counting relative to x, then this is the same as saying "count the completed rows on the x axis, and then add the remainder of the unfinished row".
-                                In this case, the striped block would be 1 completed row, and 2 extra, for which we can assign an id 5. If 0 indexed, would be 4.
-                                If the block's position is at the limit however, we have no remainder to add, and the id would be just x * y.
-                            </p>
-
-                            <br>
-                            <p>
-                                Below is the implementation code-wise but for the x-z plane.
-                            </p>
-                        
-
-
-                            <div class="post-showcase metal-gray-bg">
-                                <img class="post-img" src="./counting2dcode.png">
-                            </div>
-
-                            <p>
-                                To expand this to the y axis, we can apply a similar idea. You can think of the solution for the x,z plane as the remainder of the grouping of 10s, which 
-                                means that we need to calculate the groups next.
-                            </p>
-
-
-                            <div class="post-showcase metal-gray-bg">
-                                <img class="post-img" src="./counting3d.png">
-                            </div>
-
-                            <p>
-                                To calculate the full groups, we can simply take the y level of the block, and then multiply it by x and z lengths.
-                                Then we can add up the remainder and the groups to get the block id. This will allow all of the blocks in the boundary to
-                                be assigned a unique id. To take up the full range of possible numbers, we can also shift the numbers down to the minimum for the current
-                                data type and also convert the numbers to a different base.
-                            </p>
-
-                            <div class="post-showcase metal-gray-bg">
-                                <img class="post-img" src="./counting3dcode.png">
-                            </div>
-
                         </div>
-
                     </div>
                 </div>
 
@@ -399,27 +408,28 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="divider-line white-bg"></div>
+                            <div class="bp-container">
+                                <div class="databox light-metal-gray-bg white fanwood-font medium-font">
+                                    <h4 class="centered-just">Bithacking</h4>
+                                    <p>
+                                        In Bedwars, there are a maximum of 8 teams which can be in a given game at a time. 
+                                        This coincidently, is also the number of bits in a byte, which is a datatype in Java.
+                                        What we can do then, is assign a bit in the byte to certain teams to allow us to tag certain 
+                                        blocks such as the team chests and beds as belonging to a certain team.
+                                    </p>
 
-                        <div class="databox light-metal-gray-bg white fanwood-font medium-font">
-                            <h4 class="centered-just">Bithacking</h4>
-                            <p>
-                                In Bedwars, there are a maximum of 8 teams which can be in a given game at a time. 
-                                This coincidently, is also the number of bits in a byte, which is a datatype in Java.
-                                What we can do then, is assign a bit in the byte to certain teams to allow us to tag certain 
-                                blocks such as the team chests and beds as belonging to a certain team.
-                            </p>
+                                    <br>
 
-                            <br>
-
-                            <p>
-                                For example, team RED could have the byte representation of 1000 0000, 
-                                and team BLUE could have the byte representation of 0100 0000. 
-                                We can put each team into an array and assign them an index in the array so that they each have a bitwise representation.
-                                We also have 2 exceptional representations we can use as well: 0000 0000 and 1111 1111 which we can 
-                                use to determine whether something is restricted in some way. To fully utilize this, we need to define bitwise operations 
-                                and how we can place data onto bytes.
-                            </p>
-                        </div>
+                                    <p>
+                                        For example, team RED could have the byte representation of 1000 0000, 
+                                        and team BLUE could have the byte representation of 0100 0000. 
+                                        We can put each team into an array and assign them an index in the array so that they each have a bitwise representation.
+                                        We also have 2 exceptional representations we can use as well: 0000 0000 and 1111 1111 which we can 
+                                        use to determine whether something is restricted in some way. To fully utilize this, we need to define bitwise operations 
+                                        and how we can place data onto bytes.
+                                    </p>
+                                </div>
+                            </div>
                     </div>
                 </div>
 
@@ -472,39 +482,42 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="divider-line white-bg"></div>
-                        <div class="databox hydriodon-gray-bg white fanwood-font medium-font centered-just">
-                            <h4>Logorithms</h4>
-                            <div class="post-showcase light-metal-gray-bg">
-                                <img class="post-img" src="logorithm.png">
+                            <div class="bp-container">
+                                <div class="databox hydriodon-gray-bg white fanwood-font medium-font centered-just">
+                                <h4>Logorithms</h4>
+                                <div class="post-showcase light-metal-gray-bg">
+                                    <img class="post-img" src="logorithm.png">
+                                </div>
+
+                                <p>
+                                    If you haven't noticed by now, whenever we take a shift of a number for a byte, we're really dealing with 2^n, where
+                                    n is that shift. We can do the same to get information out of the number as well.
+                                    Bytes by default are represented in 2s complement in Java, so in order to extract information we need to deal with a case
+                                    where the byte is actually negative.
+                                </p>
+                                <br>
+                                <p>
+                                    To get the index of the team, we can take the logarithm base 2 of the byte, but since Java only does log base 10, we 
+                                    need to use the change of base formula to change to base 2. 
+                                </p>
+                                <br>
+                                <p>
+                                    The index of the team is then defined by: index = log(byte) / log(2).
+                                </p>
+                                <br>
+                                <p>
+                                    We also have a case where there is a 1 at the left most position of the byte. 
+                                    This automatically should mean that it refers to index 7. But let's make this interesting. 
+                                    If we have a byte such as 1000 0000 which is -128, if we absolute value it using Java's Math.abs(), it will give us an integer which
+                                    we can then subtract 1 from. This gives us 127, which is the positive upper bound of a byte.
+                                </p>
+                                <br>
+                                <p>
+                                    Since 2^7 is 128, when we log 127, it will give us a value of 6. Hence we add 1 to get the correct result.
+                                    We can then immediately index an array using this value, giving us the team which this tag refers to.
+                                </p>
                             </div>
 
-                            <p>
-                                If you haven't noticed by now, whenever we take a shift of a number for a byte, we're really dealing with 2^n, where
-                                n is that shift. We can do the same to get information out of the number as well.
-                                Bytes by default are represented in 2s complement in Java, so in order to extract information we need to deal with a case
-                                where the byte is actually negative.
-                            </p>
-                            <br>
-                            <p>
-                                To get the index of the team, we can take the logarithm base 2 of the byte, but since Java only does log base 10, we 
-                                need to use the change of base formula to change to base 2. 
-                            </p>
-                            <br>
-                            <p>
-                                The index of the team is then defined by: index = log(byte) / log(2).
-                            </p>
-                            <br>
-                            <p>
-                                We also have a case where there is a 1 at the left most position of the byte. 
-                                This automatically should mean that it refers to index 7. But let's make this interesting. 
-                                If we have a byte such as 1000 0000 which is -128, if we absolute value it using Java's Math.abs(), it will give us an integer which
-                                we can then subtract 1 from. This gives us 127, which is the positive upper bound of a byte.
-                            </p>
-                            <br>
-                            <p>
-                                Since 2^7 is 128, when we log 127, it will give us a value of 6. Hence we add 1 to get the correct result.
-                                We can then immediately index an array using this value, giving us the team which this tag refers to.
-                            </p>
                         </div>
                     </div>
                 </div>
