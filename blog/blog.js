@@ -3,25 +3,28 @@
 
 
 
-var POSTS = "Blog posts";
-var hovering = false;
-var message = "Enter the backroom?";
-var index = 0;
+let POSTS = "Blog posts";
+let hovering = false;
+let message = "Enter the backroom";
+let index = 0;
 
-var glitchTicks = 0;
-var lastGlitchTime = 0;
-var hoverticks = 0;
+let glitchTicks = 0;
+let lastGlitchTime = 0;
+let hoverticks = 0;
+
+let strength = 0;
+
 
 const DEFAULT_RGB = [33,37,38];
 const curr_rgb = [33,37,38];
 
-var cursed = false;
+let cursed = false;
 
 
 $(document).ready(function() {
 
     let chance = Math.random();
-    if (chance > 0.5) {
+    if (chance > 0) {
         cursed = true;
         showcookie($(this).find("#thecookie"));
         $(this).find("#cookiemsg").text("Here have a cookie :P");
@@ -96,46 +99,29 @@ function tickAction(time, reference) {
 
 function glitch(reference, title, timestamp) {
 
-    let mainbg = $(reference).find("#mainbg");
-
     if (hovering) {
-        glitchEffect(title, 0.5);
-        let r = curr_rgb[0];
-        let g = curr_rgb[1];
-        let b = curr_rgb[2];
-
-        let string = "rgb("+r+", "+g+","+b+")";
-
-        mainbg.css("background-color",string);
-        r = Math.max(r - 1, 0);
-        g = Math.max(g - 1, 0);
-        b = Math.max(b - 1, 0);
-
-        curr_rgb[0] = r;
-        curr_rgb[1] = g;
-        curr_rgb[2] = b;
+        strength = Math.min(message.length, strength + 1);
+        glitchTicks = 0;
     }
     else {
+        strength = Math.max(0, strength - 1);
+    }
 
-        if (glitchTicks <= 0){
-            title.text(POSTS);
-            curr_rgb[0] = DEFAULT_RGB[0];
-            curr_rgb[1] = DEFAULT_RGB[1];
-            curr_rgb[2] = DEFAULT_RGB[2];
-            mainbg.css("background-color","");
-        }
-
-        if (glitchTicks > 0) {
-            glitchTicks --;
-            glitchEffect(title, 0.95);
-            return;
-        }
-        
+    if (glitchTicks <= 0 && strength <= 0) {
         let chance = Math.random();
         if (chance > 0 && (timestamp - lastGlitchTime > 2000)) {
             lastGlitchTime = timestamp;
             glitchTicks = (Math.random() * 20) + 10; 
         }
+    }
+    else {
+        glitchEffect(reference, title, 0.5);
+    }
+
+    if (strength <= 0) {
+        glitchTicks --;
+        glitchEffect(reference, title, 0.95);
+        return;
     }
 }
 
@@ -144,17 +130,43 @@ function getRandomletter() {
     return String.fromCharCode(Math.random() * 26 + 97);
 }
 
-function glitchEffect(title, threshold) {
+function glitchEffect(reference, title, threshold) {
 
+    const MAX_PADDING = 10;
+    let padding = 0;
+    let mainbg = $(reference).find("#mainbg");
     let text = POSTS;
     let result = "";
 
-    if (hovering) {
+    if (strength > 0) {
 
         let letters = [getRandomletter(), getRandomletter(), getRandomletter()];
-        result = letters[0]+letters[1]+letters[2]+"<<"+message+">>"+letters[2]+letters[1]+letters[0];
+        let center = message.length / 2;
+        let showcase = message.substring(Math.max(center - strength, 0), Math.min(message.length, center + strength));
+        result = letters[0]+letters[1]+letters[2]+"<<"+showcase+">>"+letters[2]+letters[1]+letters[0];
+
+        curr_rgb[0] = Math.min(DEFAULT_RGB[0], Math.max(DEFAULT_RGB[0] - strength,0));
+        curr_rgb[1] = Math.min(DEFAULT_RGB[1], Math.max(DEFAULT_RGB[1] - strength,0));
+        curr_rgb[2] = Math.min(DEFAULT_RGB[2], Math.max(DEFAULT_RGB[2] - strength,0));
+        let string = "rgb("+curr_rgb[0]+", "+curr_rgb[1]+","+curr_rgb[2]+")";
+        mainbg.css("background-color",string);
+
+        padding = (Math.pow(strength, 0.5)) * MAX_PADDING / message.length;
+        let padstr = padding+"rem 0 "+padding+"rem 0";
+        title.css("padding",padstr);
     }
     else {
+
+        curr_rgb[0] = DEFAULT_RGB[0];
+        curr_rgb[1] = DEFAULT_RGB[1];
+        curr_rgb[2] = DEFAULT_RGB[2];
+        mainbg.css("background-color","");
+        title.css("padding","");
+
+        if (glitchTicks <= 0) {
+            title.text(POSTS);
+            return;
+        }
 
         for (let i = 0; i < text.length; i ++) {
         let random = Math.random();
@@ -163,18 +175,12 @@ function glitchEffect(title, threshold) {
         }
         else {
             result += text[i];
-        }
-
-
+            }
         }
     }
+
     title.text(result);
 }
-
-
-
-
-
 
 
 
