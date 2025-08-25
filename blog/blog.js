@@ -29,10 +29,10 @@ $(document).ready(function() {
         showcookie($(this).find("#thecookie"));
         $(this).find("#cookiemsg").text("Here have a cookie :P");
 
-        // $("#title").remove();
-        // let link = $('<a>').attr('href',"").text(POSTS).attr("id","title").addClass("no-margin-td white fanwood-font");
-        // $(this).find("#titleholder").append(link);
-        // hoverEvents(this);
+         //$("#title").remove();
+         //let link = $('<a>').attr('href',"").text(POSTS).attr("id","title").addClass("no-margin-td white fanwood-font");
+         //$(this).find("#titleholder").append(link);
+         //hoverEvents(this);
     }
     else {
         $(this).find("#thecookie *").css("display","none");

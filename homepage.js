@@ -5,7 +5,10 @@ let continueTicking = true;
 let h1text = "";
 let h2text = "";
 
-let ticksWaited = 0;
+let idleWait = 0;
+let introWait = 0;
+
+let idleStay = false;
 
 
 $(document).ready(function() {
@@ -45,22 +48,21 @@ function tick(reference) {
 
 function tickAction(reference) {
 
-    const WAIT_TICKS = 10;
+    const WAIT_TICKS = 20;
     let h1 = $(reference).find("#header1");
     let h2 = $(reference).find("#header2");
 
     if (!construct(h1, h1text))
         return;
 
-    if (ticksWaited < WAIT_TICKS) {
-        ticksWaited ++;
+    if (idleWait < WAIT_TICKS) {
+        idleWait ++;
         return;
     }
 
     if (construct(h2, h2text)) {
         continueTicking = false;
     }
-
 
 }
 
@@ -70,8 +72,14 @@ function construct(h1, value) {
     if (current.length < value.length) {
         nextLength = current.length + 1;
         let substr = value.substring(0,nextLength);
-        h1.text(substr);
+        h1.text(substr+"|");
         return false;
     }
+    else {
+        h1.text(value);
+    }
+
     return true;
 }
+
+
